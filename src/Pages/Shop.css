@@ -1,0 +1,41 @@
+/* Global wrapper for the shop page */
+.shop-container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: "Huninn", sans-serif;
+}
+
+/* Apply consistent spacing between sections */
+.shop-container > * {
+  margin-bottom: 2rem;
+}
+
+/* Optional: remove margin after Footer */
+.shop-container > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .shop-container {
+    padding: 0 1rem;
+  }
+
+  .shop-container > * {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-container {
+    padding: 0 0.75rem;
+  }
+
+  .shop-container > * {
+    margin-bottom: 1rem;
+  }
+}
