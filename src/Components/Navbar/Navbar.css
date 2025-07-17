@@ -47,14 +47,15 @@
   align-items: center;
   padding: 16px 40px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  position: sticky;
+  position:sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 10000;
   background: linear-gradient(90deg, #ffffff 0%, #f9f9ff 100%);
   font-family: "Huninn", sans-serif;
   font-weight: 400;
   font-style: normal;
-  height: 14px;
+  height: 40px;
+  
   
   
 }
