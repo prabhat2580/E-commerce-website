@@ -5,11 +5,15 @@ import cart_icon from '../Assets/cart_icon.png';
 import { Link, Navigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../../Context/UserContext'
+import { CartContext } from '../../Context/CartContext';
 
+
+ 
 export default function Navbar() {
   const [menu, setMenu] = useState("shop");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useContext(UserContext);
+  const { cartItems } = useContext(CartContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleAvatarClick = () => {
@@ -78,7 +82,7 @@ export default function Navbar() {
           <Link to='/login'><button>Login</button></Link>
         )}
         <Link to='/cart'><img src={cart_icon} alt="cart" /></Link>
-        <div className="nav-cart-count">0</div>
+        <div className="nav-cart-count">{cartItems.length}</div>
       </div>
     </div>
   );

@@ -7,11 +7,11 @@ export default function Items(props) {
         <p>{props.name}</p>
         <div className="item-prices">
             <div className="item-price-new">
-                New_Price = ${props.new_price}
+                New Price = ${props.new_price}
 
             </div>
              <div className="item-price-old">
-                Old_Price=${props.old_price}
+                Old Price=${props.old_price}
 
              </div>
         </div>

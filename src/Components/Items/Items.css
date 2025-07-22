@@ -3,6 +3,7 @@
   max-width: 300px; /* limits item from growing too big on large screens */
   margin: auto;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .item img {

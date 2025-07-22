@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ShopCategory.css'
+import { CartContext } from '../Context/CartContext';
 
-export default function ShopCategory(props) {
+export default function ShopCategory(props, Items) {
+  const { addToCart } = useContext(CartContext);
+
   
   const [data,setData]=useState([])
 const getCategoryTitle = () => {
@@ -53,15 +56,16 @@ const getCategoryTitle = () => {
   return (
     <div className="mens-category-list">
      
-    
+     {/* <img src={props.banner} alt="" /> */}
       <h2>{getCategoryTitle()} <hr /> </h2>
       <div className="category-grid">
-        {data.map((data,) => (
+        {data.map((data) => (
           <div key={data.id} className="category-card">
             <img src={data.image} alt={data.title} /> 
             <h3>{data.title}</h3>
             <p>Price:${data.price}
             </p>
+             <button onClick={() => addToCart(data)}>Add to Cart</button>
             
           </div>
         ))}

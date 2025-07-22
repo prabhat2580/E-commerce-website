@@ -20,7 +20,9 @@ function App() {
   if (!user) {
     // If not logged in, show only login/signup page
     return <LoginSignup />;
+    
   }
+
 
   // If logged in, show full website
   return (
