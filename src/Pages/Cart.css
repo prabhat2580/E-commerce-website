@@ -67,7 +67,7 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.2s ease;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .remove-button:hover {
