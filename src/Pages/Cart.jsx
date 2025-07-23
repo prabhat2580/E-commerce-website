@@ -3,7 +3,8 @@ import { CartContext } from '../Context/CartContext';
 import './Cart.css'; 
 
 export default function Cart() {
-  const { cartItems, getTotalPrice, removeFromCart } = useContext(CartContext);
+  const { cartItems, getTotalPrice, removeFromCart,increaseQuantity,
+        decreaseQuantity, } = useContext(CartContext);
 
 
 
@@ -17,19 +18,24 @@ export default function Cart() {
         <>
           <div className="cart-items">
             {cartItems.map((item, index) => (
-              <div key={index} className="cart-item">
-                <img src={item.image} alt={item.title} width="80" height="80" />
-                <div className="cart-item-details">
-                  <h4>{item.title}</h4>
-                  <p>Price: ${item.price}</p>
-                </div>
-                <button
-                  className="remove-button"
-                  onClick={() => removeFromCart(item.id)}
-                >
-                  Remove
-                </button>
-              </div>
+              <div className="cart-item">
+  <img src={item.image} alt={item.title} width="80" height="80" />
+
+  <div className="cart-item-details">
+    <h4>{item.title}</h4>
+    <p>Price: ${item.price} × {item.quantity} = ${item.price * item.quantity}</p>
+
+    {/* Quantity buttons */}
+    <div className="quantity-controls">
+      <button onClick={() => decreaseQuantity(item.id)}>-</button>
+      <span>{item.quantity}</span>
+      <button onClick={() => increaseQuantity(item.id)}>+</button>
+    </div>
+  </div>
+
+  <button className="remove-button" onClick={() => removeFromCart(item.id)}>Remove</button>
+</div>
+
             ))}
           </div>
           <hr />
