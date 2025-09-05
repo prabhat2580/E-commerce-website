@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
-import './LoginSignup.css';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../Context/UserContext';
+import React, { useEffect, useState } from "react";
+import "./LoginSignup.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../Features/slices/userSlice";
 
 export default function LoginSignup() {
   const data = { name: "", email: "", password: "" };
@@ -9,7 +10,7 @@ export default function LoginSignup() {
   const [flag, setFlag] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
-  const { login } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (flag) {
@@ -17,10 +18,12 @@ export default function LoginSignup() {
     }
   }, [flag]);
 
+  //  Handle form input
   function handleData(e) {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   }
 
+  //  Handle form submit
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -31,19 +34,12 @@ export default function LoginSignup() {
     } else {
       setFlag(true);
 
-      // ✅ Store user data in localStorage
-      localStorage.setItem("user", JSON.stringify(inputData));
+      //  Dispatch login action (stores in Redux + localStorage)
+      dispatch(login(inputData));
 
-      // ✅ Call login from context
-      login(inputData);
-
-      // ✅ Navigate to home page
+      //  Navigate to home
       navigate("/");
     }
-  }
-
-  function handleCheckbox(e) {
-    setIsChecked(e.target.checked);
   }
 
   return (
@@ -92,7 +88,7 @@ export default function LoginSignup() {
                 type="checkbox"
                 id="terms"
                 checked={isChecked}
-                onChange={handleCheckbox}
+                onChange={(e) => setIsChecked(e.target.checked)}
               />
               <label htmlFor="terms">
                 By Continuing, I agree to the terms of use & privacy policy

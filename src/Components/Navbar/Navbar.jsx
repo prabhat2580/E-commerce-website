@@ -1,27 +1,27 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/logo.png';
 import cart_icon from '../Assets/cart_icon.png';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { UserContext } from '../../Context/UserContext'
-import { CartContext } from '../../Context/CartContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../Features/slices/userSlice';
 
-
- 
 export default function Navbar() {
   const [menu, setMenu] = useState("shop");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout } = useContext(UserContext);
-  const { cartItems } = useContext(CartContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const user = useSelector((state) => state.user.user);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
 
   const handleAvatarClick = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
   const handleLogout = () => {
-    logout();
+    dispatch(logout());
     setDropdownOpen(false);
   };
 
@@ -51,7 +51,7 @@ export default function Navbar() {
         <li className='mobile-login-cart'>
           {user ? (
             <div className='avatar-section' onClick={handleAvatarClick}>
-             {(user?.name?.[0] || 'U').toUpperCase()}
+              {(user?.name?.[0] || 'U').toUpperCase()}
               {dropdownOpen && (
                 <div className="dropdown">
                   <button onClick={handleLogout}>Logout</button>
@@ -61,7 +61,10 @@ export default function Navbar() {
           ) : (
             <Link to='/login'><button>Login</button></Link>
           )}
-          <Link to='/cart'><img src={cart_icon} alt="cart" /><span className="nav-cart-count">0</span></Link>
+          <Link to='/cart'>
+            <img src={cart_icon} alt="cart" />
+            <span className="nav-cart-count">{cartItems.length}</span>
+          </Link>
         </li>
       </ul>
 
@@ -69,9 +72,9 @@ export default function Navbar() {
       <div className='nav-login-cart'>
         {user ? (
           <div className='avatar-section' onClick={handleAvatarClick}>
-           <div className='avatar'>
-  {user && user.name ? user.name[0].toUpperCase() : 'U'}
-</div>
+            <div className='avatar'>
+              {user && user.name ? user.name[0].toUpperCase() : 'U'}
+            </div>
             {dropdownOpen && (
               <div className="dropdown">
                 <button onClick={handleLogout}>Logout</button>
